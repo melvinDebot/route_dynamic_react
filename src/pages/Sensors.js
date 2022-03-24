@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import arrow from "../assets/arrow.png";
 
 
 const Sensors = () => {
@@ -26,8 +27,23 @@ const Sensors = () => {
   }, []);
   return (
     <Container>
-      <ButtonBack onClick={() => history.goBack()}> ^ </ButtonBack>
-      <h1>{ post}</h1>
+      <ButtonBack onClick={() => history.goBack()}>
+        <img src={arrow} alt="" />
+      </ButtonBack>
+      <h3>{post.Name}</h3>
+      <ContainerSensors>
+        <h4>{post.SensorType}</h4>
+        <ContainerData>
+          <div>
+            <h4>Position</h4>
+            <h4>{post.Position}</h4>
+          </div>
+          <div>
+            <h4>Id</h4>
+            <h4>{post.id}</h4>
+          </div>
+        </ContainerData>
+      </ContainerSensors>
       {/* 
       <h3>{post.Name}</h3>
       <ContainerSensors>
@@ -52,7 +68,34 @@ const Container = styled.div`
   h3 {
     font-weight: 500;
     font-size: 27px;
+    margin-top: 20px;
   }
+`;
+
+const ContainerSensors = styled.div`
+  width: 100%;
+  height: auto;
+  background: #f1f5fe;
+  border-radius: 7px;
+  padding: 20px 10px;
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  h4 {
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+`;
+
+const ContainerData = styled.div`
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 15px;
+
 `;
 
 const ButtonBack = styled.button`
@@ -64,34 +107,11 @@ const ButtonBack = styled.button`
   border-radius: 50%;
   background: #f1f5fe;
   border: none;
+  &:active {
+    background: #bed2ff;
+  }
 `;
 
-// const ContainerSensors = styled.div`
-//   width: 100%;
-//   heigh: auto;
-//   display: flex;
-//   flex-wrap: wrap;
-//   align-items: center;
-//   justify-content: space-between;
-// `;
 
-// const CardSensors = styled.div`
-//   width: 156px;
-//   height: 161px;
-//   background: #f1f5fe;
-//   border-radius: 7px;
-//   margin-top: 10px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   h4 {
-//     font-size: 14px;
-//     font-weight: 600;
-//   }
-//   h5 {
-//     font-weight: 500;
-//   }
-// `;
 
 export default Sensors;
