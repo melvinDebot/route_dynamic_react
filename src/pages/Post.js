@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import arrow from "../assets/arrow.png";
 
 const Post = () => {
   const { id } = useParams();
@@ -27,7 +27,7 @@ const Post = () => {
   }, []);
   return (
     <Container>
-      <ButtonBack onClick={() => history.goBack()}>  <BsFillArrowLeftCircleFill /> </ButtonBack>
+      <ButtonBack onClick={() => history.goBack()}>  <img src={arrow} alt="" /> </ButtonBack>
       <h3>{post.Name}</h3>
       <ContainerSensors>
         {Object.keys(sensors).map((item, i) => {
@@ -35,7 +35,7 @@ const Post = () => {
             <Link
               key={i}
               to={{
-                pathname: `/rooms/${id}/sensor/sensor01`,
+                pathname: `/rooms/${id}/sensor/${Object.keys(sensors)}`,
               }}
             >
               <CardSensors>{sensors[item].Name}</CardSensors>
@@ -69,6 +69,9 @@ const ButtonBack = styled.button`
   border-radius: 50%;
   background: #f1f5fe;
   border: none;
+  &:active {
+    background: #bed2ff;
+  }
 `;
 
 const ContainerSensors = styled.div`

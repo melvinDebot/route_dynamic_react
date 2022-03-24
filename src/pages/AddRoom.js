@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import arrow from "../assets/arrow.png";
 
 
 const AddRoom = () => {
@@ -54,7 +54,7 @@ const AddRoom = () => {
 
   return (
     <Container>
-      <ButtonBack onClick={() => history.goBack()}> <BsFillArrowLeftCircleFill /> </ButtonBack>
+      <ButtonBack onClick={() => history.goBack()}> <img src={arrow} alt="" /> </ButtonBack>
       <h4>Ajout d'une pièce</h4>
       <ContainerInput>
         <label htmlFor="nameRoom">Nom pièce</label>
@@ -123,6 +123,9 @@ const ButtonBack = styled.button`
   border-radius: 50%;
   background: #f1f5fe;
   border: none;
+  &:active {
+    background: #BED2FF;
+  }
 `;
 
 const ButtonSubmit = styled.button`
