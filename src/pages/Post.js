@@ -10,7 +10,7 @@ const Post = () => {
   let history = useHistory();
   const [post, SetPost] = useState({});
 
-  const [sensors, SetSensors] = useState({});
+  const [sensors, SetSensors] = useState([]);
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -43,7 +43,8 @@ const Post = () => {
       </ButtonBack>
       <h3>{post.name}</h3>
       <ContainerSensors>
-        {Object.keys(sensors).map((item, i) => {
+        {
+          Object.keys(sensors).map((item, i) => {
           return (
             <Link
               key={i}
@@ -54,7 +55,8 @@ const Post = () => {
               <CardSensors>{Object.keys(sensors)[i]}</CardSensors>
             </Link>
           );
-        })}
+        })
+        }
       </ContainerSensors>
       <ButtonDelete onClick={DeleteRoom}>DELETE ROOM</ButtonDelete>
     </Container>
@@ -99,6 +101,13 @@ const ContainerSensors = styled.div`
 `;
 
 const ButtonDelete = styled.button`
+  width: 100%;
+  height: 46px;
+  color: white;
+  background: #E56441;
+  border: none;
+  border-radius: 7px;
+  margin-top: 20px;
 `;
 
 const CardSensors = styled.div`
