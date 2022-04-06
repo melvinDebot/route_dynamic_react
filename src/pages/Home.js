@@ -5,19 +5,21 @@ import styled from "styled-components";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     const fetch = async () => {
       try {
-        const { data } = await axios.get("http://localhost:9000/rooms");
-        console.log(Object.keys(data.Rooms.Salon.Sensors).length);
-        setPosts(data.Rooms);
+        const { data } = await axios.get("http://localhost:3000");
+        // console.log(Object.keys(data.Rooms.Salon.Sensors).length);
+        setPosts(data.rooms);
       } catch (err) {
         console.error(err);
       }
     };
     fetch();
-    
   }, []);
+
+
   return (
     <>
       <Container>
@@ -28,14 +30,13 @@ const Home = () => {
               <Link
                 key={i}
                 to={{
-                  pathname: `/rooms/${posts[item].Name}`,
+                  pathname: `/room/${posts[item].name}`,
                 }}
               >
                 <CardRoom>
-                  <h4>{posts[item].Name}</h4>
+                  <h4>{posts[item].name}</h4>
                   <h5>
-                    {Object.keys(posts[item].Sensors).length}{" "}
-                    {Object.keys(posts[item].Sensors).length > 1 ? "devices" : "device"}
+                    View device
                   </h5>
                 </CardRoom>
               </Link>
@@ -108,6 +109,5 @@ const AddRoom = styled.div`
     font-weight: 600;
   }
 `;
-
 
 export default Home;
