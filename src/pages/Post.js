@@ -14,35 +14,49 @@ const Post = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:9000/rooms/${id}`);
-        console.log(Object.keys(data.Sensors));
+        const { data } = await axios.get(`http://localhost:3000/room/${id}`);
+        console.log('MELVIN', data)
+        // console.log(Object.keys(data.Sensors));
         SetPost(data);
         
-        SetSensors(data.Sensors)
+        SetSensors(data.sensors)
       } catch (err) {
         console.error(err);
       }
     };
     fetch();
   }, []);
+
+  const DeleteRoom = () => {
+    axios.delete(`http://localhost:3000/room/${id}`).then(res => {
+      console.log("data", res.data);
+      history.push('/')
+    })
+    console.log('delete room')
+  }
+
   return (
     <Container>
-      <ButtonBack onClick={() => history.goBack()}>  <img src={arrow} alt="" /> </ButtonBack>
-      <h3>{post.Name}</h3>
+      <ButtonBack onClick={() => history.goBack()}>
+        {" "}
+        <img src={arrow} alt="" />{" "}
+      </ButtonBack>
+      <h3>{post.name}</h3>
       <ContainerSensors>
         {Object.keys(sensors).map((item, i) => {
           return (
             <Link
               key={i}
               to={{
-                pathname: `/rooms/${id}/sensor/${Object.keys(sensors)}`,
+                pathname: `/sensor/${Object.keys(sensors)[i]}`,
               }}
             >
-              <CardSensors>{sensors[item].Name}</CardSensors>
+              <CardSensors>{Object.keys(sensors)[i]}</CardSensors>
             </Link>
           );
         })}
       </ContainerSensors>
+      <ButtonDelete onClick={DeleteRoom}>DELETE ROOM</ButtonDelete>
     </Container>
   );
 };
@@ -82,6 +96,9 @@ const ContainerSensors = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
+`;
+
+const ButtonDelete = styled.button`
 `;
 
 const CardSensors = styled.div`
