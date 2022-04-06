@@ -24,30 +24,72 @@ const AddRoom = () => {
 
   const createRoom = () => {
     const fakeRoom = {
-      Name: room.nameRoom,
-      Sensors: {
-        sensor08: {
-          id: "08",
-          Name: "ESP_Salon_08",
-          SensorType: "DHT22",
-          Temperature: false,
-          Humidity: true,
-          Position: "Mi droite",
-          IPAddress: "192.170.1.28",
-          MACAddress: "80:7D:3A:F3:9A:E1",
-          Delay: 6000,
-          Allowed: true,
+      name: room.nameRoom,
+      sensors: {
+        ESP_Chambre_01: {
+          system_settings: {
+            sensor_name: "ESP_Chambre_01",
+            room_name: "Chambre",
+            position: "Fenêtre nord",
+            etage: 1,
+            username: "admin",
+            status: "running",
+            current_timezone: "CET-1CEST,M3.5.0,M10.5.0/3",
+            timezones: [
+              "CET-1CEST,M3.5.0,M10.5.0/3",
+              "PST8PDT",
+              "EST5EDT",
+              "JST-9",
+            ],
+            version: "0.0.3",
+            chip_id: 42,
+            flash_chip_id: 42,
+            flash_chip_size: 42,
+            flash_chip_real_size: 42,
+            free_heap: 42,
+          },
+          sensor_settings: {
+            sensor_type: "DHT22",
+            sensor_pin: 5,
+            sensor_delay: 60,
+            is_hum: true,
+            is_temp: true,
+            is_allowed: true,
+            current_temp: 17.2,
+            current_hum: 52.6,
+          },
+          influxdb_config: {
+            influxdb_url: "http://192.168.1.3:8086",
+            influxdb_token: "aToken",
+            influxdb_org: "Ynov",
+            influxdb_bucket: "Paris",
+            status: "Configured and connected",
+            is_connected: true,
+          },
+          network_settings: {
+            ssid: "WiFI",
+            ip: "192.168.1.100",
+            api_port: 5565,
+            mac: "ef:re:sd:gf:az",
+            gateway: "192.168.1.255",
+            subnet_mask: "255.255.255.255",
+            signal_strengh: -32,
+          },
         },
       },
-      Area: room.sizeRoom,
+      area: parseInt(room.sizeRoom, 10)
     };
 
 
-    axios.post(`http://localhost:9000/rooms`,  fakeRoom ).then((res) => {
+    axios.post(`http://localhost:3000/room`, fakeRoom).then((res) => {
       console.log(res);
+
       console.log(res.data);
+      history.push("/")
     });
-    history.push("/")
+
+    console.log(fakeRoom);
+    
   }
 
 
