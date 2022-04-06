@@ -9,16 +9,21 @@ const Sensors = () => {
   const { id } = useParams();
   const { name } = useParams();
   let history = useHistory();
-  const [post, SetPost] = useState({});
+  const [post, SetPost] = useState([]);
+
+  const [sensorSettings, setSensorsSettings] = useState([])
+
+  const [systemSettings, setSystemSetting] = useState([])
 
   useEffect(() => {
     const fetch = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:9000/rooms/${id}/sensor/${name}`
+          `http://localhost:3000/sensor/${name}`
         );
-        console.log(data);
-        SetPost(data);
+        console.log("POSTS", data);
+        setSystemSetting(data.system_settings);
+        setSensorsSettings(data.sensor_settings);
       } catch (err) {
         console.error(err);
       }
@@ -30,31 +35,20 @@ const Sensors = () => {
       <ButtonBack onClick={() => history.goBack()}>
         <img src={arrow} alt="" />
       </ButtonBack>
-      <h3>{post.Name}</h3>
+      <h3>{systemSettings.sensor_name}</h3>
       <ContainerSensors>
-        <h4>{post.SensorType}</h4>
         <ContainerData>
+          <h4>{sensorSettings.sensor_type}</h4>
           <div>
-            <h4>Position</h4>
-            <h4>{post.Position}</h4>
+            <h4>Humidité</h4>
+            <h4>{sensorSettings.current_hum}</h4>
           </div>
           <div>
-            <h4>Id</h4>
-            <h4>{post.id}</h4>
+            <h4>Temperature</h4>
+            <h4>{sensorSettings.current_temp}</h4>
           </div>
         </ContainerData>
       </ContainerSensors>
-      {/* 
-      <h3>{post.Name}</h3>
-      <ContainerSensors>
-        {Object.keys(sensors).map((item, i) => {
-          return (
-            <Link key={i}>
-              <CardSensors>{sensors[item].Name}</CardSensors>
-            </Link>
-          );
-        })}
-      </ContainerSensors> */}
     </Container>
   );
 };
